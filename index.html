@@ -5,67 +5,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ETHIOPIA AI VIDEO</title>
-
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:#090d18;
-  color:white;
-  font-family:Arial,sans-serif;
-  text-align:center
-}
-header{
-  padding:25px;
-  background:#111a2e
-}
+body{margin:0;background:#090d18;color:white;font-family:Arial,sans-serif;text-align:center}
+header{padding:25px;background:#111a2e}
 h1{color:#55c8ff}
-main{
-  max-width:600px;
-  margin:35px auto;
-  padding:20px
-}
-textarea,select{
-  width:100%;
-  padding:14px;
-  border-radius:10px;
-  background:#151e30;
-  color:white;
-  font-size:16px;
-  border:1px solid #34435c;
-  margin-top:10px
-}
+main{max-width:600px;margin:35px auto;padding:20px}
+textarea,select{width:100%;padding:14px;border-radius:10px;background:#151e30;color:white;font-size:16px;border:1px solid #34435c;margin-top:10px}
 textarea{height:130px}
-label{
-  display:block;
-  text-align:left;
-  margin-top:20px
-}
-button{
-  width:100%;
-  padding:15px;
-  margin-top:15px;
-  background:#168cff;
-  color:white;
-  border:0;
-  border-radius:10px;
-  font-size:17px
-}
-button:disabled{
-  opacity:.6
-}
-#status{
-  color:#8ed8ff;
-  margin-top:20px;
-  overflow-wrap:anywhere
-}
-footer{
-  padding:25px;
-  color:#8290a5
-}
+label{display:block;text-align:left;margin-top:20px}
+button{width:100%;padding:15px;margin-top:15px;background:#168cff;color:white;border:0;border-radius:10px;font-size:17px}
+button:disabled{opacity:.6}
+#status{color:#8ed8ff;margin-top:20px;overflow-wrap:anywhere}
+video{width:100%;margin-top:20px;border-radius:12px;background:#000}
+footer{padding:25px;color:#8290a5}
 </style>
 </head>
-
 <body>
 
 <header>
@@ -77,14 +32,9 @@ footer{
 <h2>Text to Video Generator</h2>
 <p>Describe the video you want to create.</p>
 
-<textarea
-id="prompt"
-maxlength="2000"
-placeholder="Describe your video here..."
-></textarea>
+<textarea id="prompt" maxlength="2000" placeholder="Describe your video here..."></textarea>
 
 <label for="duration">Choose video duration:</label>
-
 <select id="duration">
 <option value="3">3 seconds</option>
 <option value="5">5 seconds</option>
@@ -92,22 +42,24 @@ placeholder="Describe your video here..."
 <option value="15">15 seconds</option>
 </select>
 
-<button id="generateButton" onclick="generateVideo()">
-Generate Video
-</button>
+<button id="generateButton" onclick="generateVideo()">Generate Video</button>
 
 <div id="status">Ready to create your video.</div>
+<div id="videoResult"></div>
 </main>
 
 <footer>© 2026 ETHIOPIA AI VIDEO</footer>
 
 <script>
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 async function generateVideo(){
 
   const prompt = document.getElementById("prompt").value.trim();
   const duration = Number(document.getElementById("duration").value);
   const button = document.getElementById("generateButton");
   const status = document.getElementById("status");
+  const videoResult = document.getElementById("videoResult");
 
   if(!prompt){
     status.textContent = "Please describe your video first.";
@@ -115,33 +67,74 @@ async function generateVideo(){
   }
 
   button.disabled = true;
-  button.textContent = "Please wait...";
+  button.textContent = "Generating...";
+  videoResult.innerHTML = "";
   status.textContent = "Starting video generation...";
 
   try{
 
-    const response = await fetch(
-      "/.netlify/functions/video",
-      {
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          prompt:prompt,
-          duration:duration
-        })
-      }
-    );
+    const response = await fetch("/.netlify/functions/video",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({prompt,duration})
+    });
 
     const result = await response.json();
 
-    if(!response.ok){
-      throw new Error(result.error || "Video generation failed.");
+    if(!response.ok || !result.id){
+      throw new Error(result.error || "Could not start video generation.");
     }
 
-    status.textContent =
-      "Video generation started! Job ID: " + (result.id || "Received");
+    const id = result.id;
+    status.textContent = "Video is being generated. Please wait...";
+
+    let completed = false;
+
+    for(let i=0; i<38; i++){
+
+      await wait(8000);
+
+      const check = await fetch(
+        "/.netlify/functions/video?id=" + encodeURIComponent(id)
+      );
+
+      const data = await check.json();
+
+      if(!check.ok){
+        throw new Error(data.error || "Could not check video status.");
+      }
+
+      status.textContent = "Video status: " + data.status;
+
+      if(data.status === "complete"){
+
+        const download = data.downloads && data.downloads[0];
+
+        if(!download || !download.url){
+          throw new Error("Video completed, but no video URL was returned.");
+        }
+
+        const video = document.createElement("video");
+        video.controls = true;
+        video.playsInline = true;
+        video.src = download.url;
+
+        videoResult.appendChild(video);
+        status.textContent = "Your video is ready!";
+        completed = true;
+        break;
+      }
+
+      if(data.status === "error" || data.status === "canceled"){
+        throw new Error(
+          (data.error && data.error.message) || "Video generation failed."
+        );
+      }
+    }
+
+    if(!completed){
+      status.textContent = "Generation is taking longer than expected. Your job ID: " + id;
+    }
 
   }catch(error){
 
