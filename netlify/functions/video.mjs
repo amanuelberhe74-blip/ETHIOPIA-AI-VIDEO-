@@ -1,3 +1,4 @@
+
 export default async (req) => {
   if (req.method !== "POST") {
     return Response.json(
@@ -17,14 +18,15 @@ export default async (req) => {
     }
 
     const body = await req.json();
+    const prompt = String(body.prompt || "").trim();
     const duration = Number(body.duration || 3);
 
-if (![3, 5, 10, 15].includes(duration)) {
-  return Response.json(
-    { error: "Invalid video duration." },
-    { status: 400 }
-  );
-}
+    if (![3, 5, 10, 15].includes(duration)) {
+      return Response.json(
+        { error: "Invalid video duration." },
+        { status: 400 }
+      );
+    }
 
     if (!prompt || prompt.length > 2000) {
       return Response.json(
@@ -43,7 +45,7 @@ if (![3, 5, 10, 15].includes(duration)) {
         },
         body: JSON.stringify({
           name: "ETHIOPIA AI VIDEO",
-          end_seconds: 3,
+          end_seconds: duration,
           aspect_ratio: "16:9",
           resolution: "480p",
           model: "ltx-2.5",
