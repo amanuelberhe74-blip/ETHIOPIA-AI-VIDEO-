@@ -82,7 +82,10 @@ async function generateVideo(){
     const result = await response.json();
 
     if(!response.ok || !result.id){
-      throw new Error(result.error || "Could not start video generation.");
+      throw new Error(
+        (result.error || "Could not start video generation.") +
+        " Details: " + JSON.stringify(result.details || result)
+      );
     }
 
     const id = result.id;
@@ -101,7 +104,10 @@ async function generateVideo(){
       const data = await check.json();
 
       if(!check.ok){
-        throw new Error(data.error || "Could not check video status.");
+        throw new Error(
+          (data.error || "Could not check video status.") +
+          " Details: " + JSON.stringify(data.details || data)
+        );
       }
 
       status.textContent = "Video status: " + data.status;
