@@ -17,7 +17,14 @@ export default async (req) => {
     }
 
     const body = await req.json();
-    const prompt = String(body.prompt || "").trim();
+    const duration = Number(body.duration || 3);
+
+if (![3, 5, 10, 15].includes(duration)) {
+  return Response.json(
+    { error: "Invalid video duration." },
+    { status: 400 }
+  );
+}
 
     if (!prompt || prompt.length > 2000) {
       return Response.json(
