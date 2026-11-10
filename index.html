@@ -1,34 +1,31 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ETHIOPIA AI VIDEO</title>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NQXXW0KJEB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-NQXXW0KJEB');
-</script>
-  <style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
 *{box-sizing:border-box}
 body{margin:0;background:#090d18;color:white;font-family:Arial,sans-serif;text-align:center}
 header{padding:25px;background:#111a2e}
 h1{color:#55c8ff}
-main{max-width:600px;margin:35px auto;padding:20px}
-textarea,select{width:100%;padding:14px;border-radius:10px;background:#151e30;color:white;font-size:16px;border:1px solid #34435c;margin-top:10px}
+main{max-width:600px;margin:25px auto;padding:20px}
+textarea,select,input{width:100%;padding:14px;border-radius:10px;background:#151e30;color:white;font-size:16px;border:1px solid #34435c;margin-top:10px}
 textarea{height:130px}
 label{display:block;text-align:left;margin-top:20px}
 button{width:100%;padding:15px;margin-top:15px;background:#168cff;color:white;border:0;border-radius:10px;font-size:17px}
 button:disabled{opacity:.6}
-#status{color:#8ed8ff;margin-top:20px;overflow-wrap:anywhere}
+#status,#authStatus{color:#8ed8ff;margin-top:20px;overflow-wrap:anywhere}
 video{width:100%;margin-top:20px;border-radius:12px;background:#000}
 footer{padding:25px;color:#8290a5}
+.panel{background:#111a2e;padding:20px;border-radius:15px;margin-bottom:25px}
+.hidden{display:none}
 </style>
 </head>
+
 <body>
 
 <header>
@@ -37,6 +34,26 @@ footer{padding:25px;color:#8290a5}
 </header>
 
 <main>
+
+<div id="authPanel" class="panel">
+<h2>Welcome</h2>
+<p>Register or Login to continue</p>
+
+<input id="email" type="email" placeholder="Your email address">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="signUp()">Create Account</button>
+<button onclick="signIn()">Login</button>
+
+<div id="authStatus"></div>
+</div>
+
+<div id="userPanel" class="panel hidden">
+<p id="userEmail"></p>
+<button onclick="signOut()">Logout</button>
+</div>
+
+<div id="generator" class="hidden">
 <h2>Text to Video Generator</h2>
 <p>Describe the video you want to create.</p>
 
@@ -54,11 +71,102 @@ footer{padding:25px;color:#8290a5}
 
 <div id="status">Ready to create your video.</div>
 <div id="videoResult"></div>
+</div>
+
 </main>
 
 <footer>© 2026 ETHIOPIA AI VIDEO</footer>
 
 <script>
+const SUPABASE_URL = "https://cdarlbwkvkzfyncttrsu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_wKzLmIwl4hkxs5OhqkjjqA_r8YAkp1A";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+async function signUp(){
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const status = document.getElementById("authStatus");
+
+  if(!email || !password){
+    status.textContent = "Enter your email and password.";
+    return;
+  }
+
+  status.textContent = "Creating account...";
+
+  const {data,error} = await supabaseClient.auth.signUp({
+    email: email,
+    password: password
+  });
+
+  if(error){
+    status.textContent = error.message;
+    return;
+  }
+
+  if(data.session){
+    status.textContent = "Account created successfully!";
+  }else{
+    status.textContent = "Check your email and confirm your account.";
+  }
+}
+
+async function signIn(){
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const status = document.getElementById("authStatus");
+
+  if(!email || !password){
+    status.textContent = "Enter your email and password.";
+    return;
+  }
+
+  status.textContent = "Logging in...";
+
+  const {error} = await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if(error){
+    status.textContent = error.message;
+  }
+}
+
+async function signOut(){
+  await supabaseClient.auth.signOut();
+}
+
+function showUser(session){
+  const authPanel = document.getElementById("authPanel");
+  const userPanel = document.getElementById("userPanel");
+  const generator = document.getElementById("generator");
+
+  if(session){
+    authPanel.classList.add("hidden");
+    userPanel.classList.remove("hidden");
+    generator.classList.remove("hidden");
+    document.getElementById("userEmail").textContent =
+      "Logged in: " + session.user.email;
+  }else{
+    authPanel.classList.remove("hidden");
+    userPanel.classList.add("hidden");
+    generator.classList.add("hidden");
+  }
+}
+
+supabaseClient.auth.onAuthStateChange((event,session)=>{
+  showUser(session);
+});
+
+supabaseClient.auth.getSession().then(({data})=>{
+  showUser(data.session);
+});
+
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function generateVideo(){
@@ -80,7 +188,6 @@ async function generateVideo(){
   status.textContent = "Starting video generation...";
 
   try{
-
     const response = await fetch("/.netlify/functions/video",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
@@ -102,7 +209,6 @@ async function generateVideo(){
     let completed = false;
 
     for(let i=0; i<38; i++){
-
       await wait(8000);
 
       const check = await fetch(
@@ -112,20 +218,16 @@ async function generateVideo(){
       const data = await check.json();
 
       if(!check.ok){
-        throw new Error(
-          (data.error || "Could not check video status.") +
-          " Details: " + JSON.stringify(data.details || data)
-        );
+        throw new Error(data.error || "Could not check video status.");
       }
 
       status.textContent = "Video status: " + data.status;
 
       if(data.status === "complete"){
-
         const download = data.downloads && data.downloads[0];
 
         if(!download || !download.url){
-          throw new Error("Video completed, but no video URL was returned.");
+          throw new Error("No video URL was returned.");
         }
 
         const video = document.createElement("video");
@@ -140,25 +242,19 @@ async function generateVideo(){
       }
 
       if(data.status === "error" || data.status === "canceled"){
-        throw new Error(
-          (data.error && data.error.message) || "Video generation failed."
-        );
+        throw new Error("Video generation failed.");
       }
     }
 
     if(!completed){
-      status.textContent = "Generation is taking longer than expected. Your job ID: " + id;
+      status.textContent = "Generation is taking longer than expected. Job ID: " + id;
     }
 
   }catch(error){
-
     status.textContent = "Error: " + error.message;
-
   }finally{
-
     button.disabled = false;
     button.textContent = "Generate Video";
-
   }
 }
 </script>
