@@ -1,64 +1,156 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="am">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ETHIOPIA AI VIDEO</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#090d18;color:white;font-family:Arial,sans-serif;text-align:center}
-header{padding:25px;background:#111a2e}
-h1{color:#55c8ff}
-main{max-width:600px;margin:25px auto;padding:20px}
-textarea,select,input{width:100%;padding:14px;border-radius:10px;background:#151e30;color:white;font-size:16px;border:1px solid #34435c;margin-top:10px}
-textarea{height:130px}
-label{display:block;text-align:left;margin-top:20px}
-button{width:100%;padding:15px;margin-top:15px;background:#168cff;color:white;border:0;border-radius:10px;font-size:17px}
-button:disabled{opacity:.6}
-#status,#authStatus{color:#8ed8ff;margin-top:20px;overflow-wrap:anywhere}
-video{width:100%;margin-top:20px;border-radius:12px;background:#000}
-footer{padding:25px;color:#8290a5}
-.panel{background:#111a2e;padding:20px;border-radius:15px;margin-bottom:25px}
-.hidden{display:none}
+body{margin:0;background:#f3f7fb;color:#10243e;font-family:Arial,sans-serif}
+.hidden{display:none!important}
+header{height:68px;background:#08733c;color:white;display:flex;align-items:center;justify-content:space-between;padding:0 12px;position:sticky;top:0;z-index:5}
+.brand{font-size:clamp(16px,4vw,27px);font-weight:900}
+.brand b{color:#ffdc28}
+.menuBtn,.bell{background:none;border:0;color:white;font-size:27px;cursor:pointer}
+.shell{display:flex;max-width:1400px;margin:auto;min-height:calc(100vh - 68px)}
+.sidebar{width:260px;flex-shrink:0;background:white;margin:12px;border:1px solid #dce5ed;border-radius:20px;padding:15px;align-self:flex-start;position:sticky;top:80px}
+.profile{text-align:center;padding:12px 5px 18px;border-bottom:1px solid #ddd}
+.avatar{width:115px;height:115px;border-radius:50%;border:4px solid #0a9c50;display:grid;place-items:center;margin:auto;background:#e4f8e8;color:#08783e;font-size:38px;font-weight:bold}
+.profile h2{font-size:21px;color:#075b32}
+.memberTag{display:inline-block;background:#0a9b4c;color:white;padding:9px 15px;border-radius:25px;font-weight:bold}
+.nav{padding-top:12px}
+.nav button{width:100%;text-align:left;border:0;background:white;color:#10243e;padding:13px 9px;border-radius:12px;font-weight:bold;font-size:15px;margin:3px 0;cursor:pointer}
+.nav button.active,.nav button:hover{background:#ddf7e2;color:#08783e}
+.nav button.logout{color:#d92323}
+.sidefoot{text-align:center;border-top:1px solid #ddd;margin-top:12px;padding-top:17px;color:#08783e;font-weight:bold}
+.content{flex:1;min-width:0;padding:12px}
+.hero{min-height:230px;border-radius:22px;padding:25px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:white;background:linear-gradient(115deg,#09264f,#075b45 65%,#08783e)}
+.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.05;margin:0 0 12px}
+.hero h1 span{color:#ffdc28}
+.hero p{font-size:17px;line-height:1.5}
+.heroIcon{font-size:75px}
+.welcome{background:#e4f9e5;border:2px solid #b9e9bd;border-radius:18px;padding:16px;margin:17px 0;display:flex;align-items:center;gap:15px}
+.check{width:55px;height:55px;border-radius:50%;background:#20b653;color:white;display:grid;place-items:center;font-size:32px;flex-shrink:0}
+.welcome h2{margin:0 0 6px;color:#08783e}
+.welcome p{margin:0;font-weight:bold}
+.stats{background:linear-gradient(110deg,#07883e,#006a37);border-radius:20px;padding:20px;color:white;display:flex;align-items:center;justify-content:space-around;gap:12px;flex-wrap:wrap}
+.stat{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:800}
+.stat small{display:block;font-size:14px}
+.statDivider{height:55px;width:2px;background:#ffffff80}
+.generatorLink{display:block;width:90%;margin:18px auto;background:linear-gradient(110deg,#0878ec,#0756c8);color:white;padding:19px;border-radius:18px;font-size:22px;font-weight:bold;border:0;cursor:pointer}
+.infoCard,.panel{background:white;border:1px solid #dce5ed;border-radius:18px;padding:20px;margin-top:18px;box-shadow:0 3px 12px #10243e0c}
+.infoCard h2,.panel h2{color:#075b32}
+.infoCard li{margin:9px 0;line-height:1.5}
+.panel{max-width:650px;margin:30px auto}
+input,textarea,select{width:100%;padding:14px;border:1px solid #ccd7e2;border-radius:11px;margin:8px 0;background:#f9fbfd;color:#10243e;font-size:16px}
+textarea{height:120px}
+label{display:block;margin-top:12px;font-weight:bold}
+.action{border:0;border-radius:12px;background:#08783e;color:white;padding:14px;width:100%;margin-top:10px;font-weight:bold;cursor:pointer}
+.action.blue{background:#1268d9}
+#status,#authStatus{margin-top:14px;overflow-wrap:anywhere;color:#08783e}
+video{width:100%;margin-top:18px;border-radius:14px;background:#000}
+footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
+.section{display:none}
+.section.active{display:block}
+@media(max-width:760px){
+.shell{display:block}
+.sidebar{display:none;position:fixed;z-index:10;top:68px;left:0;bottom:0;width:min(290px,85vw);margin:0;border-radius:0 18px 18px 0;overflow:auto}
+.sidebar.open{display:block}
+.content{padding:10px}
+.hero{min-height:195px;padding:20px 15px}
+.heroIcon{font-size:55px}
+.hero p{font-size:15px}
+.stats{padding:16px}
+.stat{font-size:18px}
+.statDivider{display:none}
+.generatorLink{font-size:19px}
+}
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>ETHIOPIA AI VIDEO</h1>
-<p>Create videos with Artificial Intelligence</p>
+<button class="menuBtn" onclick="toggleMenu()"> </button>
+<div class="brand">🇪🇹 ETHIOPIA <b>AI VIDEO</b></div>
+<button class="bell" onclick="showSection('help')"> </button>
 </header>
 
-<main>
-
 <div id="authPanel" class="panel">
-<h2>Welcome</h2>
-<p>Register or Login to continue</p>
-
-<input id="email" type="email" placeholder="Your email address">
+<h2>ETHIOPIA AI VIDEO</h2>
+<p>በAI ቴክኖሎጂ ቪዲዮ ይፍጠሩ</p>
+<h3>መለያ ይፍጠሩ ወይም ይግቡ</h3>
+<input id="email" type="email" placeholder="Email አድራሻ">
 <input id="password" type="password" placeholder="Password">
-
-<button onclick="signUp()">Create Account</button>
-<button onclick="signIn()">Login</button>
-
+<button class="action" onclick="signUp()">Create Account</button>
+<button class="action blue" onclick="signIn()">Login</button>
 <div id="authStatus"></div>
 </div>
 
-<div id="userPanel" class="panel hidden">
-<p id="userEmail"></p>
-<button onclick="signOut()">Logout</button>
+<div id="appShell" class="shell hidden">
+<aside class="sidebar" id="sidebar">
+<div class="profile">
+<div class="avatar">AB</div>
+<h2>Amanuel Berhe</h2>
+<div class="memberTag">👑 ETHIOPIA AI VIDEO</div>
+</div>
+<nav class="nav">
+<button class="active" onclick="showSection('home')"> 　ዋና ገጽ</button>
+<button onclick="showSection('about')"> 　ስለ ETHIOPIA AI VIDEO</button>
+<button onclick="showSection('guide')"> 　የአጠቃቀም መመሪያ</button>
+<button onclick="showSection('payment')"> 　የክፍያ መመሪያ</button>
+<button onclick="showSection('membership')"> 　የአባልነት ቀናት</button>
+<button onclick="showSection('help')">?　እገዛ</button>
+<button onclick="showSection('contact')">✉　ያግኙን</button>
+<button class="logout" onclick="signOut()"> 　ውጣ</button>
+</nav>
+<div class="sidefoot">© 2026 ETHIOPIA AI VIDEO</div>
+</aside>
+
+<main class="content">
+
+<section id="home" class="section active">
+<div class="hero">
+<div>
+<h1>ETHIOPIA<br><span>AI VIDEO</span></h1>
+<p>በAI ቴክኖሎጂ አዳዲስ ቪዲዮዎችን ይፍጠሩ!</p>
+</div>
+<div class="heroIcon">🤖</div>
 </div>
 
-<div id="generator" class="hidden">
-<h2>Text to Video Generator</h2>
+<div class="welcome">
+<div class="check"> </div>
+<div><h2>እንኳን ደህና መጡ!</h2>
+<p>ወደ ETHIOPIA AI VIDEO ድረገጽ በደህና መጡ።</p></div>
+</div>
+
+<div class="stats">
+<div class="stat">👑 <div>50 ብር<small>ለ30 ቀናት አባልነት</small></div></div>
+<div class="statDivider"></div>
+<div class="stat">  <div>30 ቀን<small>የአባልነት ጊዜ</small></div></div>
+</div>
+
+<button class="generatorLink" onclick="showSection('generator')">
+▶ AI VIDEO GENERATOR<br><small>የራስዎን አዲስ ቪዲዮ ይፍጠሩ</small>
+</button>
+
+<div class="infoCard">
+<h3>💡 የአጠቃቀም መመሪያ</h3>
+<ol>
+<li>የሚፈልጉትን ቪዲዮ ይግለጹ።</li>
+<li>የቪዲዮውን ጊዜ ይምረጡ።</li>
+<li>Generate Video የሚለውን ይጫኑ።</li>
+</ol>
+<button class="action" onclick="showSection('guide')">ሙሉ መመሪያውን ይመልከቱ  </button>
+</div>
+</section>
+
+<section id="generator" class="section">
+<div class="panel" style="margin-top:0">
+<h2>AI Video Generator</h2>
 <p>Describe the video you want to create.</p>
-
 <textarea id="prompt" maxlength="2000" placeholder="Describe your video here..."></textarea>
-
 <label for="duration">Choose video duration:</label>
 <select id="duration">
 <option value="3">3 seconds</option>
@@ -66,14 +158,51 @@ footer{padding:25px;color:#8290a5}
 <option value="10">10 seconds</option>
 <option value="15">15 seconds</option>
 </select>
-
-<button id="generateButton" onclick="generateVideo()">Generate Video</button>
-
+<button id="generateButton" class="action blue" onclick="generateVideo()">Generate Video</button>
 <div id="status">Ready to create your video.</div>
 <div id="videoResult"></div>
 </div>
+</section>
+
+<section id="about" class="section infoCard">
+<h2>ስለ ETHIOPIA AI VIDEO</h2>
+<p>ETHIOPIA AI VIDEO በሰው ሰራሽ አስተውሎት (AI) ቴክኖሎጂ ቪዲዮ ለመፍጠር የተዘጋጀ መድረክ ነው።</p>
+</section>
+
+<section id="guide" class="section infoCard">
+<h2>የአጠቃቀም መመሪያ</h2>
+<ol>
+<li>ወደ AI VIDEO GENERATOR ይግቡ።</li>
+<li>የሚፈልጉትን ቪዲዮ በጽሁፍ ይግለጹ።</li>
+<li>የቪዲዮ ጊዜ ይምረጡ።</li>
+<li>Generate Video ይጫኑና እስኪዘጋጅ ይጠብቁ።</li>
+</ol>
+</section>
+
+<section id="payment" class="section infoCard">
+<h2>የክፍያ መመሪያ</h2>
+<p>የአባልነት ዋጋ 50 ብር ለ30 ቀናት ነው።</p>
+<p>የክፍያ ማረጋገጫ ስርዓት እስኪዘጋጅ ድረስ እባክዎ ክፍያ አይፈጽሙ።</p>
+</section>
+
+<section id="membership" class="section infoCard">
+<h2>የአባልነት ቀናት</h2>
+<p>የአባልነት ዋጋ፦ 50 ብር / 30 ቀናት።</p>
+<p>የአባልነት ማረጋገጫ ስርዓት ገና አልተገናኘም።</p>
+</section>
+
+<section id="help" class="section infoCard">
+<h2>እገዛ</h2>
+<p>በመለያ መግባት ወይም ቪዲዮ ማመንጨት ላይ ችግር ካጋጠመዎት ያግኙን።</p>
+</section>
+
+<section id="contact" class="section infoCard">
+<h2>ያግኙን</h2>
+<p>የድጋፍ አድራሻ በቅርቡ ይጨመራል።</p>
+</section>
 
 </main>
+</div>
 
 <footer>© 2026 ETHIOPIA AI VIDEO</footer>
 
@@ -82,182 +211,37 @@ const SUPABASE_URL = "https://cdarlbwkvkzfyncttrsu.supabase.co";
 const SUPABASE_KEY = "sb_publishable_wKzLmIwl4hkxs5OhqkjjqA_r8YAkp1A";
 
 const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 async function signUp(){
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const status = document.getElementById("authStatus");
-
-  if(!email || !password){
-    status.textContent = "Enter your email and password.";
-    return;
-  }
-
-  status.textContent = "Creating account...";
-
-  const {data,error} = await supabaseClient.auth.signUp({
-    email: email,
-    password: password
-  });
-
-  if(error){
-    status.textContent = error.message;
-    return;
-  }
-
-  if(data.session){
-    status.textContent = "Account created successfully!";
-  }else{
-    status.textContent = "Check your email and confirm your account.";
-  }
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+const status=document.getElementById("authStatus");
+if(!email||!password){status.textContent="Email እና Password ያስገቡ።";return}
+status.textContent="Creating account...";
+const {data,error}=await supabaseClient.auth.signUp({email,password});
+if(error){status.textContent=error.message;return}
+status.textContent=data.session?"Account created successfully!":"Emailዎን ከፍተው ያረጋግጡ።";
 }
 
 async function signIn(){
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const status = document.getElementById("authStatus");
-
-  if(!email || !password){
-    status.textContent = "Enter your email and password.";
-    return;
-  }
-
-  status.textContent = "Logging in...";
-
-  const {error} = await supabaseClient.auth.signInWithPassword({
-    email: email,
-    password: password
-  });
-
-  if(error){
-    status.textContent = error.message;
-  }
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+const status=document.getElementById("authStatus");
+if(!email||!password){status.textContent="Email እና Password ያስገቡ።";return}
+status.textContent="Logging in...";
+const {error}=await supabaseClient.auth.signInWithPassword({email,password});
+if(error)status.textContent=error.message;
 }
 
-async function signOut(){
-  await supabaseClient.auth.signOut();
-}
+async function signOut(){await supabaseClient.auth.signOut()}
 
 function showUser(session){
-  const authPanel = document.getElementById("authPanel");
-  const userPanel = document.getElementById("userPanel");
-  const generator = document.getElementById("generator");
-
-  if(session){
-    authPanel.classList.add("hidden");
-    userPanel.classList.remove("hidden");
-    generator.classList.remove("hidden");
-    document.getElementById("userEmail").textContent =
-      "Logged in: " + session.user.email;
-  }else{
-    authPanel.classList.remove("hidden");
-    userPanel.classList.add("hidden");
-    generator.classList.add("hidden");
-  }
+document.getElementById("authPanel").classList.toggle("hidden",!!session);
+document.getElementById("appShell").classList.toggle("hidden",!session);
 }
 
-supabaseClient.auth.onAuthStateChange((event,session)=>{
-  showUser(session);
-});
-
-supabaseClient.auth.getSession().then(({data})=>{
-  showUser(data.session);
-});
-
-const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-async function generateVideo(){
-
-  const prompt = document.getElementById("prompt").value.trim();
-  const duration = Number(document.getElementById("duration").value);
-  const button = document.getElementById("generateButton");
-  const status = document.getElementById("status");
-  const videoResult = document.getElementById("videoResult");
-
-  if(!prompt){
-    status.textContent = "Please describe your video first.";
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = "Generating...";
-  videoResult.innerHTML = "";
-  status.textContent = "Starting video generation...";
-
-  try{
-    const response = await fetch("/.netlify/functions/video",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({prompt,duration})
-    });
-
-    const result = await response.json();
-
-    if(!response.ok || !result.id){
-      throw new Error(
-        (result.error || "Could not start video generation.") +
-        " Details: " + JSON.stringify(result.details || result)
-      );
-    }
-
-    const id = result.id;
-    status.textContent = "Video is being generated. Please wait...";
-
-    let completed = false;
-
-    for(let i=0; i<38; i++){
-      await wait(8000);
-
-      const check = await fetch(
-        "/.netlify/functions/video?id=" + encodeURIComponent(id)
-      );
-
-      const data = await check.json();
-
-      if(!check.ok){
-        throw new Error(data.error || "Could not check video status.");
-      }
-
-      status.textContent = "Video status: " + data.status;
-
-      if(data.status === "complete"){
-        const download = data.downloads && data.downloads[0];
-
-        if(!download || !download.url){
-          throw new Error("No video URL was returned.");
-        }
-
-        const video = document.createElement("video");
-        video.controls = true;
-        video.playsInline = true;
-        video.src = download.url;
-
-        videoResult.appendChild(video);
-        status.textContent = "Your video is ready!";
-        completed = true;
-        break;
-      }
-
-      if(data.status === "error" || data.status === "canceled"){
-        throw new Error("Video generation failed.");
-      }
-    }
-
-    if(!completed){
-      status.textContent = "Generation is taking longer than expected. Job ID: " + id;
-    }
-
-  }catch(error){
-    status.textContent = "Error: " + error.message;
-  }finally{
-    button.disabled = false;
-    button.textContent = "Generate Video";
-  }
-}
-</script>
-
-</body>
-</html>
+function toggleMenu(){
+document.getEleme
