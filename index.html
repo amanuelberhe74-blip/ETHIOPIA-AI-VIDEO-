@@ -17,7 +17,15 @@ header{height:68px;background:#08733c;color:white;display:flex;align-items:cente
 .shell{display:flex;max-width:1400px;margin:auto;min-height:calc(100vh - 68px)}
 .sidebar{width:260px;flex-shrink:0;background:white;margin:12px;border:1px solid #dce5ed;border-radius:20px;padding:15px;align-self:flex-start;position:sticky;top:80px}
 .profile{text-align:center;padding:12px 5px 18px;border-bottom:1px solid #ddd}
-.avatar{width:115px;height:115px;border-radius:50%;border:4px solid #0a9c50;display:grid;place-items:center;margin:auto;background:#e4f8e8;color:#08783e;font-size:38px;font-weight:bold}
+.avatar{
+width:115px;
+height:115px;
+border-radius:50%;
+border:4px solid #0a9c50;
+object-fit:cover;
+display:block;
+margin:auto;
+}
 .profile h2{font-size:21px;color:#075b32}
 .memberTag{display:inline-block;background:#0a9b4c;color:white;padding:9px 15px;border-radius:25px;font-weight:bold}
 .nav{padding-top:12px}
@@ -91,7 +99,7 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
 <div id="appShell" class="shell hidden">
 <aside class="sidebar" id="sidebar">
 <div class="profile">
-<div class="avatar">AB</div>
+<img src="Screenshot_20261108-153033_1.png" alt="Amanuel Berhe" class="avatar">
 <h2>Amanuel Berhe</h2>
 <div class="memberTag">👑 ETHIOPIA AI VIDEO</div>
 </div>
