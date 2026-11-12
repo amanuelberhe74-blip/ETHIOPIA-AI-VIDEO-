@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="am">
 <head>
@@ -5,427 +6,306 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ETHIOPIA AI VIDEO</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f3f7fb;color:#10243e;font-family:Arial,sans-serif}
 .hidden{display:none!important}
-header{height:65px;background:#08733c;color:white;display:flex;align-items:center;justify-content:space-between;padding:0 12px;position:sticky;top:0;z-index:5}
-.brand{font-size:19px;font-weight:900}
+
+header{
+  height:72px;background:#08733c;color:white;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;position:sticky;top:0;z-index:20
+}
+.brand{font-size:clamp(17px,3vw,29px);font-weight:900}
 .brand b{color:#ffdc28}
-.menuBtn{background:none;border:0;color:white;font-size:27px}
-.shell{display:flex;max-width:1400px;margin:auto;min-height:calc(100vh - 65px)}
-.sidebar{width:260px;flex-shrink:0;background:white;margin:12px;border:1px solid #dce5ed;border-radius:18px;padding:15px;align-self:flex-start;position:sticky;top:78px}
+.menuBtn{background:none;border:0;color:white;font-size:30px;cursor:pointer}
+
+.shell{display:flex;max-width:1500px;margin:auto;min-height:calc(100vh - 72px)}
+
+.sidebar{
+  width:290px;flex-shrink:0;background:white;margin:14px;
+  border:1px solid #dce5ed;border-radius:18px;padding:15px;
+  align-self:flex-start;position:sticky;top:86px;
+  box-shadow:0 3px 12px #10243e10
+}
 .profile{text-align:center;padding:12px 5px 18px;border-bottom:1px solid #ddd}
-.avatar{width:110px;height:110px;border-radius:50%;border:4px solid #0a9c50;object-fit:cover;display:block;margin:auto}
+.avatar{
+  width:115px;height:115px;border-radius:50%;
+  border:4px solid #0a9c50;object-fit:cover;display:block;margin:auto
+}
 .profile h2{font-size:20px;color:#075b32}
-.memberTag{display:inline-block;background:#0a9b4c;color:white;padding:9px 15px;border-radius:25px;font-weight:bold}
+.memberTag{
+  display:inline-block;background:#0a9b4c;color:white;
+  padding:10px 15px;border-radius:25px;font-weight:bold
+}
 .nav{padding-top:12px}
-.nav button{width:100%;text-align:left;border:0;background:white;color:#10243e;padding:13px 9px;border-radius:12px;font-weight:bold;font-size:15px;margin:3px 0;cursor:pointer}
+.nav button{
+  width:100%;display:flex;align-items:center;gap:13px;
+  text-align:left;border:0;background:white;color:#10243e;
+  padding:13px 10px;border-radius:12px;font-weight:bold;
+  font-size:16px;margin:3px 0;cursor:pointer
+}
+.nav button .navIcon{font-size:23px;width:28px;text-align:center;flex-shrink:0}
 .nav button.active,.nav button:hover{background:#ddf7e2;color:#08783e}
-.nav button.logout{color:#d92323}
-.sidefoot{text-align:center;border-top:1px solid #ddd;margin-top:12px;padding-top:17px;color:#08783e;font-weight:bold}
-.content{flex:1;min-width:0;padding:12px}
-.hero{min-height:220px;border-radius:22px;padding:25px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:white;background:linear-gradient(115deg,#09264f,#075b45 65%,#08783e)}
-.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.05;margin:0 0 12px}
-.hero h1 span{color:#ffdc28}
-.hero p{font-size:17px;line-height:1.5}
-.heroIcon{font-size:70px}
-.welcome{background:#e4f9e5;border:2px solid #b9e9bd;border-radius:18px;padding:16px;margin:17px 0;display:flex;align-items:center;gap:15px}
-.check{width:50px;height:50px;border-radius:50%;background:#20b653;color:white;display:grid;place-items:center;font-size:30px}
-.stats{background:linear-gradient(110deg,#07883e,#006a37);border-radius:20px;padding:20px;color:white;display:flex;align-items:center;justify-content:space-around;gap:12px;flex-wrap:wrap}
-.stat{font-size:22px;font-weight:800}
-.stat small{display:block;font-size:14px}
-.generatorLink{display:block;width:90%;margin:18px auto;background:linear-gradient(110deg,#0878ec,#0756c8);color:white;padding:19px;border-radius:18px;font-size:21px;font-weight:bold;border:0}
-.infoCard,.panel{background:white;border:1px solid #dce5ed;border-radius:18px;padding:20px;margin-top:18px;box-shadow:0 3px 12px #10243e0c}
+.nav button.logout{color:#e02020}
+.sidefoot{
+  text-align:center;border-top:1px solid #ddd;
+  margin-top:12px;padding-top:17px;color:#08783e;font-weight:bold
+}
+
+.content{flex:1;min-width:0;padding:14px}
+
+/* COVER IMAGE */
+.hero{
+  width:100%;overflow:hidden;border-radius:22px;
+  background:#063c35;margin-bottom:18px;
+  box-shadow:0 4px 14px #10243e18
+}
+.hero img{
+  display:block;width:100%;height:auto;
+  aspect-ratio:2.4/1;object-fit:cover
+}
+
+.welcome{
+  background:#e4f9e5;border:2px solid #b9e9bd;
+  border-radius:20px;padding:18px;margin:17px 0;
+  display:flex;align-items:center;gap:18px
+}
+.check{
+  width:65px;height:65px;min-width:65px;
+  border-radius:50%;background:#20b653;color:white;
+  display:grid;place-items:center;font-size:42px;font-weight:bold
+}
+.welcome h2{margin:5px 0 12px;font-size:25px}
+.welcome p{font-size:18px;line-height:1.5;margin:0}
+
+.stats{
+  background:linear-gradient(110deg,#07883e,#006a37);
+  border-radius:20px;padding:20px;color:white;
+  display:flex;align-items:center;justify-content:space-around;
+  gap:12px;flex-wrap:wrap
+}
+.stat{text-align:center;font-size:25px;font-weight:800}
+.stat small{display:block;font-size:17px;margin-top:5px}
+.statDivider{height:65px;width:2px;background:#ffffffaa}
+
+.generatorLink{
+  display:block;width:95%;margin:18px auto;
+  background:linear-gradient(110deg,#0878ec,#0756c8);
+  color:white;padding:20px;border-radius:20px;
+  font-size:25px;font-weight:bold;border:0;cursor:pointer
+}
+.generatorLink small{font-size:18px}
+.infoCard,.panel{
+  background:white;border:1px solid #dce5ed;
+  border-radius:20px;padding:22px;margin-top:18px;
+  box-shadow:0 3px 12px #10243e0c
+}
 .infoCard h2,.panel h2{color:#075b32}
-.infoCard li{margin:9px 0;line-height:1.5}
-.panel{max-width:650px;margin:25px auto}
-input,textarea,select{width:100%;padding:14px;border:1px solid #ccd7e2;border-radius:11px;margin:8px 0;background:#f9fbfd;color:#10243e;font-size:16px}
-textarea{height:120px}
-label{display:block;margin-top:12px;font-weight:bold}
-.action{border:0;border-radius:12px;background:#08783e;color:white;padding:14px;width:100%;margin-top:10px;font-weight:bold;cursor:pointer}
+.infoCard h3{font-size:23px}
+.infoCard li{margin:12px 0;line-height:1.6;font-size:18px}
+
+.panel{max-width:700px;margin:25px auto}
+input,textarea,select{
+  width:100%;padding:15px;border:1px solid #ccd7e2;
+  border-radius:11px;margin:8px 0;background:#f9fbfd;
+  color:#10243e;font-size:17px
+}
+textarea{height:130px}
+label{display:block;margin-top:15px;font-weight:bold}
+.action{
+  border:0;border-radius:12px;background:#08783e;
+  color:white;padding:15px;width:100%;margin-top:10px;
+  font-weight:bold;font-size:17px;cursor:pointer
+}
 .action.blue{background:#1268d9}
 .action.google{background:#fff;color:#333;border:1px solid #bbb}
+.action:disabled{opacity:.6;cursor:not-allowed}
 #status,#authStatus{margin-top:14px;overflow-wrap:anywhere;line-height:1.6}
 video{width:100%;margin-top:18px;border-radius:14px;background:#000}
 .section{display:none}
 .section.active{display:block}
 footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
+
+/* MOBILE */
 @media(max-width:760px){
-.shell{display:block}
-.sidebar{display:none;position:fixed;z-index:10;top:65px;left:0;bottom:0;width:min(290px,85vw);margin:0;border-radius:0 18px 18px 0;overflow:auto}
-.sidebar.open{display:block}
-.content{padding:10px}
-.hero{min-height:190px;padding:18px 14px}
-.heroIcon{font-size:50px}
-.hero p{font-size:15px}
-.stats{padding:16px}
-.stat{font-size:18px}
-.generatorLink{font-size:18px}
+  header{height:65px;padding:0 12px}
+  .brand{font-size:18px}
+  .menuBtn{font-size:27px}
+  .shell{display:block}
+  .sidebar{
+    display:none;position:fixed;z-index:30;top:65px;
+    left:0;bottom:0;width:min(300px,88vw);
+    margin:0;border-radius:0 18px 18px 0;overflow:auto
+  }
+  .sidebar.open{display:block}
+  .content{padding:10px}
+  .hero{border-radius:17px;margin-bottom:14px}
+  .hero img{aspect-ratio:1.9/1;object-fit:cover}
+  .welcome{padding:15px;gap:12px}
+  .check{width:52px;height:52px;min-width:52px;font-size:34px}
+  .welcome h2{font-size:21px}
+  .welcome p{font-size:16px}
+  .stats{padding:16px}
+  .stat{font-size:20px}
+  .stat small{font-size:14px}
+  .statDivider{height:50px}
+  .generatorLink{font-size:19px;padding:18px;width:95%}
+  .generatorLink small{font-size:15px}
+  .infoCard,.panel{padding:17px}
+  .infoCard li{font-size:16px}
 }
 </style>
 </head>
+
 <body>
 
 <header>
-<button class="menuBtn" onclick="toggleMenu()">☰</button>
-<div class="brand">🇪🇹 ETHIOPIA <b>AI VIDEO</b></div>
-<button class="menuBtn" onclick="showSection('help')">?</button>
+  <button class="menuBtn" onclick="toggleMenu()"> </button>
+  <div class="brand">🇪🇹 ETHIOPIA <b>AI VIDEO</b></div>
+  <button class="menuBtn" onclick="showSection('help')">?</button>
 </header>
 
+<!-- LOGIN -->
 <div id="authPanel" class="panel">
-<h2>🇪🇹 ETHIOPIA AI VIDEO</h2>
-<p>በAI ቴክኖሎጂ ቪዲዮ ይፍጠሩ</p>
-<h3>መለያ ይፍጠሩ ወይም ይግቡ</h3>
-<input id="email" type="email" placeholder="Email አድራሻ">
-<input id="password" type="password" placeholder="Password">
-<button class="action" onclick="signUp()">Create Account</button>
-<button class="action blue" onclick="signIn()">Login</button>
-<button class="action google" onclick="googleLogin()">🌐 Continue with Google</button>
-<div id="authStatus"></div>
+  <h2>🇪🇹 ETHIOPIA AI VIDEO</h2>
+  <p>በAI ቴክኖሎጂ ቪዲዮ ይፍጠሩ</p>
+  <h3>መለያ ይፍጠሩ ወይም ይግቡ</h3>
+  <input id="email" type="email" placeholder="Email አድራሻ">
+  <input id="password" type="password" placeholder="Password">
+  <button class="action" onclick="signUp()">Create Account</button>
+  <button class="action blue" onclick="signIn()">Login</button>
+  <button class="action google" onclick="googleLogin()">🌐 Continue with Google</button>
+  <div id="authStatus"></div>
 </div>
 
 <div id="appShell" class="shell hidden">
-<aside class="sidebar" id="sidebar">
-<div class="profile">
-<img src="Screenshot_20261108-153033_1.png" alt="Profile" class="avatar">
-<h2>Amanuel Berhe</h2>
-<div class="memberTag">👑 ETHIOPIA AI VIDEO</div>
-</div>
-<nav class="nav">
-<button class="active" onclick="showSection('home')">ዋና ገጽ</button>
-<button onclick="showSection('about')">ስለ ድረገጹ</button>
-<button onclick="showSection('guide')">የአጠቃቀም መመሪያ</button>
-<button onclick="showSection('payment')">የክፍያ መመሪያ</button>
-<button onclick="showSection('membership')">የአባልነት ቀናት</button>
-<button onclick="showSection('help')">እገዛ</button>
-<button onclick="showSection('contact')">ያግኙን</button>
-<button class="logout" onclick="signOut()">ውጣ</button>
-</nav>
-<div class="sidefoot">© 2026 ETHIOPIA AI VIDEO</div>
-</aside>
-
-<main class="content">
-
-<section id="home" class="section active">
-<div class="hero">
-<div>
-<h1>ETHIOPIA<br><span>AI VIDEO</span></h1>
-<p>በAI ቴክኖሎጂ አዳዲስ ቪዲዮዎችን ይፍጠሩ!</p>
-</div>
-<div class="heroIcon">🤖</div>
-</div>
-
-<div class="welcome">
-<div class="check">✓</div>
-<div><h2>እንኳን ደህና መጡ!</h2>
-<p>ወደ ETHIOPIA AI VIDEO ድረገጽ በደህና መጡ።</p></div>
-</div>
-
-<div class="stats">
-<div class="stat">👑 50 ብር<small>ለ30 ቀናት አባልነት</small></div>
-<div class="stat">30 ቀን<small>የአባልነት ጊዜ</small></div>
-</div>
-
-<button class="generatorLink" onclick="showSection('generator')">
-▶ AI VIDEO GENERATOR<br><small>የራስዎን አዲስ ቪዲዮ ይፍጠሩ</small>
-</button>
-
-<div class="infoCard">
-<h3>💡 የአጠቃቀም መመሪያ</h3>
-<ol>
-<li>የሚፈልጉትን ቪዲዮ ይግለጹ።</li>
-<li>የቪዲዮውን ጊዜ ይምረጡ።</li>
-<li>Generate Video የሚለውን ይጫኑ።</li>
-</ol>
-<button class="action" onclick="showSection('guide')">ሙሉ መመሪያውን ይመልከቱ</button>
-</div>
-</section>
-
-<section id="generator" class="section">
-<div class="panel" style="margin-top:0">
-<h2>AI Video Generator</h2>
-<p>Describe the video you want to create.</p>
-<textarea id="prompt" maxlength="2000" placeholder="Describe your video here..."></textarea>
-<label for="duration">Choose video duration:</label>
-<select id="duration">
-<option value="3">3 seconds</option>
-<option value="5">5 seconds</option>
-<option value="10">10 seconds</option>
-<option value="15">15 seconds</option>
-</select>
-<button id="generateButton" class="action blue" onclick="generateVideo()">Generate Video</button>
-<div id="status">Ready to create your video.</div>
-<div id="videoResult"></div>
-</div>
-</section>
-
-<section id="about" class="section infoCard">
-<h2>ስለ ETHIOPIA AI VIDEO</h2>
-<p>ETHIOPIA AI VIDEO በAI ቴክኖሎጂ ቪዲዮ ለመፍጠር የተዘጋጀ መድረክ ነው።</p>
-</section>
-
-<section id="guide" class="section infoCard">
-<h2>የአጠቃቀም መመሪያ</h2>
-<ol>
-<li>ወደ AI VIDEO GENERATOR ይግቡ።</li>
-<li>የሚፈልጉትን ቪዲዮ በጽሁፍ ይግለጹ።</li>
-<li>የቪዲዮ ጊዜ ይምረጡ።</li>
-<li>Generate Video ይጫኑና እስኪዘጋጅ ይጠብቁ።</li>
-</ol>
-</section>
-
-<section id="payment" class="section infoCard">
-<h2>የክፍያ መመሪያ</h2>
-<p>የአባልነት ዋጋ 50 ብር ለ30 ቀናት ነው።</p>
-<p>የክፍያ ማረጋገጫ ስርዓት እስኪዘጋጅ ድረስ እባክዎ ክፍያ አይፈጽሙ።</p>
-</section>
-
-<section id="membership" class="section infoCard">
-<h2>የአባልነት ቀናት</h2>
-<p>የአባልነት ዋጋ፦ 50 ብር / 30 ቀናት።</p>
-<p>የአባልነት ማረጋገጫ ስርዓት ገና አልተገናኘም።</p>
-</section>
-
-<section id="help" class="section infoCard">
-<h2>እገዛ</h2>
-<p>በመለያ መግባት ወይም ቪዲዮ ማመንጨት ላይ ችግር ካጋጠመዎት ያግኙን።</p>
-</section>
-
-<section id="contact" class="section infoCard">
-<h2>ያግኙን</h2>
-<p>የድጋፍ አድራሻ በቅርቡ ይጨመራል።</p>
-</section>
-
-</main>
-</div>
-
-<footer>© 2026 ETHIOPIA AI VIDEO</footer>
-
-<script>
-const SUPABASE_URL = "https://cdarlbwkvkzfyncttrsu.supabase.co";
-const SUPABASE_KEY = "sb_publishable_wKzLmIwl4hkxs5OhqkjjqA_r8YAkp1A";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-function setAuthMessage(message){
-  document.getElementById("authStatus").textContent = message;
-}
-
-async function signUp(){
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  if(!email || !password){
-    setAuthMessage("Email እና Password ያስገቡ።");
-    return;
-  }
-
-  setAuthMessage("Account እየተፈጠረ ነው...");
-  const {data,error} = await supabaseClient.auth.signUp({
-    email,
-    password
-  });
-
-  if(error){
-    setAuthMessage(error.message);
-    return;
-  }
-
-  if(data.session){
-    setAuthMessage("Account ተፈጥሯል።");
-  }else{
-    setAuthMessage("Emailዎን ከፍተው ያረጋግጡ።");
-  }
-}
-
-async function signIn(){
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  if(!email || !password){
-    setAuthMessage("Email እና Password ያስገቡ።");
-    return;
-  }
-
-  setAuthMessage("እየገባ ነው...");
-  const {error} = await supabaseClient.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  if(error) setAuthMessage(error.message);
-}
-
-async function googleLogin(){
-  setAuthMessage("Google እየተከፈተ ነው...");
-
-  const {error} = await supabaseClient.auth.signInWithOAuth({
-    provider:"google",
-    options:{
-      redirectTo:window.location.origin
-    }
-  });
-
-  if(error) setAuthMessage(error.message);
-}
-
-async function signOut(){
-  await supabaseClient.auth.signOut();
-}
-
-function showUser(session){
-  document.getElementById("authPanel").classList.toggle("hidden",!!session);
-  document.getElementById("appShell").classList.toggle("hidden",!session);
-}
-
-supabaseClient.auth.onAuthStateChange((event,session)=>{
-  showUser(session);
-});
-
-supabaseClient.auth.getSession().then(({data})=>{
-  showUser(data.session);
-});
-
-function toggleMenu(){
-  document.getElementById("sidebar").classList.toggle("open");
-}
-
-function showSection(name){
-  document.querySelectorAll(".section").forEach(section=>{
-    section.classList.remove("active");
-  });
-
-  const selected = document.getElementById(name);
-  if(selected) selected.classList.add("active");
-
-  document.querySelectorAll(".nav button").forEach(button=>{
-    button.classList.remove("active");
-  });
-
-  const buttons = document.querySelectorAll(".nav button");
-  buttons.forEach(button=>{
-    if(button.getAttribute("onclick") === "showSection('"+name+"')"){
-      button.classList.add("active");
-    }
-  });
-
-  document.getElementById("sidebar").classList.remove("open");
-  window.scrollTo(0,0);
-}
-
-async function generateVideo(){
-  const prompt = document.getElementById("prompt").value.trim();
-  const duration = Number(document.getElementById("duration").value);
-  const status = document.getElementById("status");
-  const resultBox = document.getElementById("videoResult");
-  const button = document.getElementById("generateButton");
-
-  if(!prompt){
-    status.textContent = "እባክዎ የሚፈልጉትን ቪዲዮ ይግለጹ።";
-    return;
-  }
-
-  if(prompt.length > 2000){
-    status.textContent = "ጽሁፉ ከ2000 ፊደላት መብለጥ የለበትም።";
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = "Please wait...";
-  resultBox.innerHTML = "";
-  status.textContent = "የቪዲዮ ማመንጨት ተጀምሯል...";
-
-  try{
-    const createResponse = await fetch("/.netlify/functions/video",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({prompt,duration})
-    });
-
-    const created = await createResponse.json();
-
-    if(!createResponse.ok){
-      throw new Error(created.error || "Video request failed.");
-    }
-
-    if(!created.id){
-      throw new Error("Video ID አልተገኘም።");
-    }
-
-    status.textContent = "ቪዲዮው እየተዘጋጀ ነው። እባክዎ ይጠብቁ...";
-
-    let finished = false;
-
-    for(let i=0; i<60; i++){
-      await new Promise(resolve=>setTimeout(resolve,6000));
-
-      const checkResponse = await fetch(
-        "/.netlify/functions/video?id="+encodeURIComponent(created.id)
-      );
-
-      const checked = await checkResponse.json();
-
-      if(!checkResponse.ok){
-        throw new Error(checked.error || "Status check failed.");
-      }
-
-      if(checked.status === "complete"){
-        const download = checked.downloads && checked.downloads[0];
-
-        if(!download || !download.url){
-          throw new Error("ቪዲዮው ተጠናቋል፤ ግን የማውረጃ ሊንክ አልተገኘም።");
-        }
-
-        const video = document.createElement("video");
-        video.controls = true;
-        video.playsInline = true;
-        video.src = download.url;
-
-        const heading = document.createElement("h3");
-        heading.textContent = "🎉 ቪዲዮዎ ተዘጋጅቷል!";
-
-        const link = document.createElement("a");
-        link.href = download.url;
-        link.target = "_blank";
-        link.rel = "noopener";
-        link.textContent = "ቪዲዮውን አውርድ";
-        link.style.display = "block";
-        link.style.marginTop = "15px";
-
-        resultBox.appendChild(heading);
-        resultBox.appendChild(video);
-        resultBox.appendChild(link);
-
-        status.textContent = "ቪዲዮው በተሳካ ሁኔታ ተዘጋጅቷል።";
-        finished = true;
-        break;
-      }
-
-      if(checked.status === "error" || checked.status === "canceled"){
-        throw new Error(
-          checked.error?.message || "ቪዲዮው መፈጠር አልቻለም።"
-        );
-      }
-
-      status.textContent = "ቪዲዮው እየተሰራ ነው... ("+
-        checked.status+")";
-    }
-
-    if(!finished){
-      status.textContent = "ሂደቱ ገና አልተጠናቀቀም። ከጊዜ በኋላ እንደገና ይመልከቱ።";
-    }
-
-  }catch(error){
-    status.textContent = "ስህተት: " + error.message;
-  }finally{
-    button.disabled = false;
-    button.textContent = "Generate Video";
-  }
-}
-</script>
-</body>
-</html>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="profile">
+      <img src="Screenshot_20261108-153033_1.png" alt="Profile" class="avatar">
+      <h2>Amanuel Berhe</h2>
+      <div class="memberTag">👑 ETHIOPIA AI VIDEO</div>
+    </div>
+
+    <nav class="nav">
+      <button class="active" onclick="showSection('home')">
+        <span class="navIcon">🏠</span><span>ዋና ገጽ</span>
+      </button>
+      <button onclick="showSection('about')">
+        <span class="navIcon">🔵</span><span>ስለ ድረገጹ</span>
+      </button>
+      <button onclick="showSection('guide')">
+        <span class="navIcon">📖</span><span>የአጠቃቀም መመሪያ</span>
+      </button>
+      <button onclick="showSection('payment')">
+        <span class="navIcon">💳</span><span>የክፍያ መመሪያ</span>
+      </button>
+      <button onclick="showSection('membership')">
+        <span class="navIcon">👑</span><span>የአባልነት ቀናት</span>
+      </button>
+      <button onclick="showSection('help')">
+        <span class="navIcon">❔</span><span>እገዛ</span>
+      </button>
+      <button onclick="showSection('contact')">
+        <span class="navIcon">✉️</span><span>ያግኙን</span>
+      </button>
+      <button class="logout" onclick="signOut()">
+        <span class="navIcon">🚪</span><span>ውጣ</span>
+      </button>
+    </nav>
+
+    <div class="sidefoot">© 2026 ETHIOPIA AI VIDEO</div>
+  </aside>
+
+  <main class="content">
+
+    <!-- HOME / COVER -->
+    <section id="home" class="section active">
+
+      <div class="hero">
+        <img src="cover-banner.png" alt="ETHIOPIA AI VIDEO Cover">
+      </div>
+
+      <div class="welcome">
+        <div class="check"> </div>
+        <div>
+          <h2>እንኳን ደህና መጡ!</h2>
+          <p>ወደ ETHIOPIA AI VIDEO ድረገጽ በደህና መጡ።</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          👑 50 ብር
+          <small>ለ30 ቀናት አባልነት</small>
+        </div>
+        <div class="statDivider"></div>
+        <div class="stat">
+          📅 30 ቀን
+          <small>የአባልነት ጊዜ</small>
+        </div>
+      </div>
+
+      <button class="generatorLink" onclick="showSection('generator')">
+        ▶ AI VIDEO GENERATOR<br>
+        <small>የራስዎን አዲስ ቪዲዮ ይፍጠሩ</small>
+      </button>
+
+      <div class="infoCard">
+        <h3>💡 የአጠቃቀም መመሪያ</h3>
+        <ol>
+          <li>የሚፈልጉትን ቪዲዮ ይግለጹ።</li>
+          <li>የቪዲዮውን ጊዜ ይምረጡ።</li>
+          <li>Generate Video የሚለውን ይጫኑ።</li>
+        </ol>
+        <button class="action" onclick="showSection('guide')">
+          ሙሉ መመሪያውን ይመልከቱ
+        </button>
+      </div>
+    </section>
+
+    <!-- GENERATOR -->
+    <section id="generator" class="section">
+      <div class="panel" style="margin-top:0">
+        <h2>AI Video Generator</h2>
+        <p>Describe the video you want to create.</p>
+
+        <textarea id="prompt" maxlength="2000"
+          placeholder="Describe your video here..."></textarea>
+
+        <label for="duration">Choose video duration:</label>
+        <select id="duration">
+          <option value="3">3 seconds</option>
+          <option value="5">5 seconds</option>
+          <option value="10">10 seconds</option>
+          <option value="15">15 seconds</option>
+        </select>
+
+        <button id="generateButton" class="action blue" onclick="generateVideo()">
+          Generate Video
+        </button>
+
+        <div id="status">Ready to create your video.</div>
+        <div id="videoResult"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section infoCard">
+      <h2>🔵 ስለ ETHIOPIA AI VIDEO</h2>
+      <p>ETHIOPIA AI VIDEO በAI ቴክኖሎጂ ቪዲዮ ለመፍጠር የተዘጋጀ መድረክ ነው።</p>
+    </section>
+
+    <!-- GUIDE -->
+    <section id="guide" class="section infoCard">
+      <h2>📖 የአጠቃቀም መመሪያ</h2>
+      <ol>
+        <li>ወደ AI VIDEO GENERATOR ይግቡ።</li>
+        <li>የሚፈልጉትን ቪዲዮ በጽሁፍ ይግለጹ።</li>
+        <li>የቪዲዮ ጊዜ ይምረጡ።</li>
+        <li>Generate Video ይጫኑና እስኪዘጋጅ ይጠብቁ።</li>
+      </ol>
+    
