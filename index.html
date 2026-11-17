@@ -92,7 +92,6 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
  <button class="menuBtn" onclick="showSection('help')">?</button>
 </header>
 
-<!-- LOGIN -->
 <div id="authPanel" class="panel">
  <h2>🇪🇹 ETHIOPIA AI VIDEO</h2>
  <p>በAI ቴክኖሎጂ ቪዲዮ ይፍጠሩ</p>
@@ -130,7 +129,6 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
 
 <main class="content">
 
-<!-- HOME -->
 <section id="home" class="section active">
  <div class="hero">
   <img src="ethiopia_ai_video_cover-1.png" alt="ETHIOPIA AI VIDEO Cover">
@@ -166,7 +164,6 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
  </div>
 </section>
 
-<!-- GENERATOR -->
 <section id="generator" class="section">
  <div class="panel" style="margin-top:0">
   <h2>🎬 AI Video Generator</h2>
@@ -201,14 +198,12 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
  </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about" class="section infoCard">
  <h2>🔵 ስለ ETHIOPIA AI VIDEO</h2>
  <p>ETHIOPIA AI VIDEO በAI ቴክኖሎጂ ቪዲዮ ለመፍጠር የተዘጋጀ መድረክ ነው።</p>
  <p>ዓላማችን ተጠቃሚዎች የሚፈልጉትን የቪዲዮ ሀሳብ በቀላሉ እንዲያዘጋጁ ማገዝ ነው።</p>
 </section>
 
-<!-- GUIDE -->
 <section id="guide" class="section infoCard">
  <h2>📖 የአጠቃቀም መመሪያ</h2>
  <ol>
@@ -221,7 +216,6 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
  <p class="smallText">የቪዲዮ መፍጠር በውጭ አገልግሎት ስለሚከናወን የአገልግሎቱ መለያ ወይም የአገልግሎት ፈቃድ ሊያስፈልግ ይችላል።</p>
 </section>
 
-<!-- PAYMENT -->
 <section id="payment" class="section infoCard">
  <h2>💳 የክፍያ መመሪያ</h2>
  <h3>የአባልነት ክፍያ፦ 50 ETB</h3>
@@ -236,7 +230,6 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
  <div id="paymentStatus"></div>
 </section>
 
-<!-- MEMBERSHIP -->
 <section id="membership" class="section infoCard">
  <h2>👑 የአባልነት ሁኔታ</h2>
  <p id="membershipStatus">የአባልነት ሁኔታ እየተፈተሸ ነው...</p>
@@ -244,7 +237,6 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
  <button class="action" onclick="showSection('payment')">አባልነት ይግዙ</button>
 </section>
 
-<!-- HELP -->
 <section id="help" class="section infoCard">
  <h2>❔ እገዛ</h2>
  <p><b>ጥያቄ፦</b> አባልነት ስንት ብር ነው?</p>
@@ -255,7 +247,6 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
  <p>መልስ፦ በተመረጠው የውጭ AI አገልግሎት ይዘጋጃል።</p>
 </section>
 
-<!-- CONTACT -->
 <section id="contact" class="section infoCard">
  <h2>✉️ ያግኙን</h2>
  <p>ለእገዛ ወይም ለጥያቄ በዚህ ገጽ ያለውን የእገዛ ክፍል ይጠቀሙ።</p>
@@ -267,7 +258,6 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
 </div>
 
 <script>
-/* SUPABASE SETTINGS */
 const SUPABASE_URL = "https://cdarlbwkvkzfyncttrsu.supabase.co";
 const SUPABASE_KEY = "sb_publishable_wKzLmIwl4hkxs5OhqkjjqA_r8YAkp1A";
 
@@ -275,6 +265,9 @@ const supabaseClient = window.supabase.createClient(
  SUPABASE_URL,
  SUPABASE_KEY
 );
+
+/* ለሙከራ ብቻ፦ ከጨረስን በኋላ false እናደርገዋለን */
+const GENERATOR_TEST_MODE = true;
 
 /* VIDEO DESTINATIONS */
 const VIDEO_DESTINATIONS = {
@@ -386,7 +379,7 @@ async function signOut(){
 
 /* MEMBERSHIP CHECK */
 async function refreshMembership(){
- if(!currentUser) return;
+ if(!currentUser) return false;
 
  message("membershipStatus","የአባልነት ሁኔታ እየተፈተሸ ነው...");
 
@@ -446,6 +439,11 @@ async function payMembership(){
 
 /* GENERATOR */
 async function openGenerator(){
+ if(GENERATOR_TEST_MODE){
+  showSection("generator");
+  return;
+ }
+
  const active=await refreshMembership();
  if(active){
   showSection("generator");
@@ -455,12 +453,13 @@ async function openGenerator(){
 }
 
 async function generateVideo(type){
- const active=await refreshMembership();
-
- if(!active){
-  message("status","ይህን አገልግሎት ለመጠቀም ንቁ አባልነት ያስፈልጋል።");
-  showSection("membership");
-  return;
+ if(!GENERATOR_TEST_MODE){
+  const active=await refreshMembership();
+  if(!active){
+   message("status","ይህን አገልግሎት ለመጠቀም ንቁ አባልነት ያስፈልጋል።");
+   showSection("membership");
+   return;
+  }
  }
 
  const prompt=document.getElementById("prompt").value.trim();
