@@ -53,7 +53,8 @@ label{display:block;margin-top:15px;font-weight:bold}
 .section{display:none}
 .section.active{display:block}
 footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
-.choice{background:white;border:2px solid #dce5ed;border-radius:16px;padding:18px;margin:14px 0}
+.choice{background:white;border:2px solid #dce5ed;border-radius:16px;padding:18px;margin:14px 0;cursor:pointer}
+.choice:hover{border-color:#08783e;background:#f5fff7}
 .choice h3{color:#075b32;margin-top:0}
 .smallText{font-size:14px;color:#526579;line-height:1.6}
 
@@ -164,27 +165,21 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
  </div>
 </section>
 
-<!-- NEW GENERATOR: ONLY TWO OPTIONS -->
-
 <section id="generator" class="section">
  <div class="panel" style="margin-top:0">
   <h2>🎬 AI Video Generator</h2>
-  <p>የሚፈልጉትን የቪዲዮ ጥራት ይምረጡ።</p>
+  <p>የሚፈልጉትን የቪዲዮ አማራጭ ይምረጡ።</p>
 
-  <div class="choice">
+  <div class="choice" onclick="openVideoService('high')">
    <h3>🌟 ከፍተኛ ጥራት</h3>
-   <p>ለከፍተኛ ጥራት የቪዲዮ ስራ።</p>
-   <button class="action blue" onclick="openVideoService('high')">
-    🌟 ከፍተኛ ጥራት
-   </button>
+   <p>ከፍተኛ ጥራት ያለው AI ቪዲዮ ለመፍጠር ይጫኑ።</p>
+   <button class="action blue" type="button">🌟 ከፍተኛ ጥራት</button>
   </div>
 
-  <div class="choice">
+  <div class="choice" onclick="openVideoService('low')">
    <h3>📱 አነስተኛ</h3>
-   <p>ለቀላል የቪዲዮ ስራ።</p>
-   <button class="action" onclick="openVideoService('low')">
-    📱 አነስተኛ
-   </button>
+   <p>YouTube Create ለመጠቀም ይጫኑ።</p>
+   <button class="action" type="button">📱 አነስተኛ</button>
   </div>
 
   <div id="status"></div>
@@ -257,10 +252,8 @@ const supabaseClient = window.supabase.createClient(
  SUPABASE_KEY
 );
 
-/* ለሙከራ ብቻ */
 const GENERATOR_TEST_MODE = true;
 
-/* VIDEO DESTINATIONS */
 const VIDEO_DESTINATIONS = {
  high: "https://labs.google/fx/tools/flow",
  low: "https://play.google.com/store/apps/details?id=com.google.android.apps.youtube.producer"
@@ -389,8 +382,6 @@ async function signOut(){
  message("authStatus","ከመለያዎ ወጥተዋል።");
 }
 
-/* MEMBERSHIP CHECK */
-
 async function refreshMembership(){
  if(!currentUser) return false;
 
@@ -425,8 +416,6 @@ async function refreshMembership(){
  return false;
 }
 
-/* PAYMENT */
-
 async function payMembership(){
  if(!currentUser){
   message("paymentStatus","እባክዎ መጀመሪያ Login ያድርጉ።");
@@ -451,8 +440,6 @@ async function payMembership(){
  }
 }
 
-/* GENERATOR: ONLY TWO OPTIONS */
-
 async function openGenerator(){
  if(GENERATOR_TEST_MODE){
   showSection("generator");
@@ -476,10 +463,8 @@ function openVideoService(type){
   return;
  }
 
- window.open(destination,"_blank");
+ window.location.href=destination;
 }
-
-/* CHECK LOGIN WHEN PAGE OPENS */
 
 async function startApp(){
  const {data}=await supabaseClient.auth.getSession();
