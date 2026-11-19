@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="am">
 <head>
@@ -5,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ETHIOPIA AI VIDEO</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f3f7fb;color:#10243e;font-family:Arial,sans-serif}
@@ -43,8 +43,7 @@ header{height:72px;background:#08733c;color:white;display:flex;align-items:cente
 .infoCard h2,.panel h2{color:#075b32}
 .infoCard li{margin:12px 0;line-height:1.6;font-size:18px}
 .panel{max-width:700px;margin:25px auto}
-input,textarea,select{width:100%;padding:15px;border:1px solid #ccd7e2;border-radius:11px;margin:8px 0;background:#f9fbfd;color:#10243e;font-size:17px}
-label{display:block;margin-top:15px;font-weight:bold}
+input{width:100%;padding:15px;border:1px solid #ccd7e2;border-radius:11px;margin:8px 0;background:#f9fbfd;color:#10243e;font-size:17px}
 .action{border:0;border-radius:12px;background:#08783e;color:white;padding:15px;width:100%;margin-top:10px;font-weight:bold;font-size:17px;cursor:pointer}
 .action.blue{background:#1268d9}
 .action.google{background:#fff;color:#333;border:1px solid #bbb}
@@ -57,186 +56,171 @@ footer{text-align:center;padding:22px;color:#08783e;font-weight:bold}
 .choice:hover{border-color:#08783e;background:#f5fff7}
 .choice h3{color:#075b32;margin-top:0}
 .smallText{font-size:14px;color:#526579;line-height:1.6}
-
 @media(max-width:760px){
- header{height:65px;padding:0 12px}
- .brand{font-size:17px}
- .menuBtn{font-size:27px}
- .shell{display:block}
- .sidebar{display:none;position:fixed;z-index:30;top:65px;left:0;bottom:0;width:min(300px,88vw);margin:0;border-radius:0 18px 18px 0;overflow:auto}
- .sidebar.open{display:block}
- .content{padding:10px}
- .hero{border-radius:17px;margin-bottom:14px}
- .hero img{aspect-ratio:1.9/1}
- .welcome{padding:15px;gap:12px}
- .check{width:52px;height:52px;min-width:52px;font-size:29px}
- .welcome h2{font-size:21px}
- .welcome p{font-size:16px}
- .stats{padding:16px}
- .stat{font-size:20px}
- .stat small{font-size:14px}
- .statDivider{height:50px}
- .generatorLink{font-size:19px;padding:18px;width:95%}
- .generatorLink small{font-size:15px}
- .infoCard,.panel{padding:17px}
- .infoCard li{font-size:16px}
+header{height:65px;padding:0 12px}
+.brand{font-size:17px}
+.menuBtn{font-size:27px}
+.shell{display:block}
+.sidebar{display:none;position:fixed;z-index:30;top:65px;left:0;bottom:0;width:min(300px,88vw);margin:0;border-radius:0 18px 18px 0;overflow:auto}
+.sidebar.open{display:block}
+.content{padding:10px}
+.hero{border-radius:17px;margin-bottom:14px}
+.hero img{aspect-ratio:1.9/1}
+.welcome{padding:15px;gap:12px}
+.check{width:52px;height:52px;min-width:52px;font-size:29px}
+.welcome h2{font-size:21px}
+.welcome p{font-size:16px}
+.stats{padding:16px}
+.stat{font-size:20px}
+.stat small{font-size:14px}
+.statDivider{height:50px}
+.generatorLink{font-size:19px;padding:18px;width:95%}
+.generatorLink small{font-size:15px}
+.infoCard,.panel{padding:17px}
+.infoCard li{font-size:16px}
 }
 </style>
 </head>
-
 <body>
 
 <header>
- <button class="menuBtn" onclick="toggleMenu()">☰</button>
- <div class="brand">🇪🇹 ETHIOPIA <b>AI VIDEO</b></div>
- <button class="menuBtn" onclick="showSection('help')">?</button>
+<button class="menuBtn" onclick="toggleMenu()">☰</button>
+<div class="brand">🇪🇹 ETHIOPIA <b>AI VIDEO</b></div>
+<button class="menuBtn" onclick="showSection('help')">?</button>
 </header>
 
 <div id="authPanel" class="panel">
- <h2>🇪🇹 ETHIOPIA AI VIDEO</h2>
- <p>በAI ቴክኖሎጂ ቪዲዮ ይፍጠሩ</p>
- <h3>መለያ ይፍጠሩ ወይም ይግቡ</h3>
- <input id="email" type="email" placeholder="Email አድራሻ">
- <input id="password" type="password" placeholder="Password">
- <button class="action" onclick="signUp()">Create Account</button>
- <button class="action blue" onclick="signIn()">Login</button>
- <button class="action google" onclick="googleLogin()">🌐 Continue with Google</button>
- <div id="authStatus"></div>
+<h2>🇪🇹 ETHIOPIA AI VIDEO</h2>
+<p>በAI ቴክኖሎጂ ቪዲዮ ይፍጠሩ</p>
+<h3>መለያ ይፍጠሩ ወይም ይግቡ</h3>
+<input id="email" type="email" placeholder="Email አድራሻ">
+<input id="password" type="password" placeholder="Password">
+<button class="action" onclick="signUp()">Create Account</button>
+<button class="action blue" onclick="signIn()">Login</button>
+<button class="action google" onclick="googleLogin()">🌐 Continue with Google</button>
+<div id="authStatus"></div>
 </div>
 
 <div id="appShell" class="shell hidden">
-
 <aside class="sidebar" id="sidebar">
- <div class="profile">
-  <img src="Screenshot_20261108-153033_1.png" alt="Profile" class="avatar">
-  <h2>Amanuel Berhe</h2>
-  <div class="memberTag">👑 ETHIOPIA AI VIDEO</div>
-  <p id="sideEmail" class="smallText"></p>
- </div>
-
- <nav class="nav">
-  <button class="active" onclick="showSection('home')"><span class="navIcon">🏠</span>ዋና ገጽ</button>
-  <button onclick="showSection('about')"><span class="navIcon">🔵</span>ስለ ድረገጹ</button>
-  <button onclick="showSection('guide')"><span class="navIcon">📖</span>የአጠቃቀም መመሪያ</button>
-  <button onclick="showSection('payment')"><span class="navIcon">💳</span>የክፍያ መመሪያ</button>
-  <button onclick="showSection('membership')"><span class="navIcon">👑</span>የአባልነት ቀናት</button>
-  <button onclick="showSection('help')"><span class="navIcon">❔</span>እገዛ</button>
-  <button onclick="showSection('contact')"><span class="navIcon">✉️</span>ያግኙን</button>
-  <button class="logout" onclick="signOut()"><span class="navIcon">🚪</span>ውጣ</button>
- </nav>
-
- <div class="sidefoot">© 2026 ETHIOPIA AI VIDEO</div>
+<div class="profile">
+<img src="Screenshot_20261108-153033_1.png" alt="Profile" class="avatar">
+<h2>Amanuel Berhe</h2>
+<div class="memberTag">👑 ETHIOPIA AI VIDEO</div>
+<p id="sideEmail" class="smallText"></p>
+</div>
+<nav class="nav">
+<button class="active" onclick="showSection('home')"><span class="navIcon">🏠</span>ዋና ገጽ</button>
+<button onclick="showSection('about')"><span class="navIcon">🔵</span>ስለ ድረገጹ</button>
+<button onclick="showSection('guide')"><span class="navIcon">📖</span>የአጠቃቀም መመሪያ</button>
+<button onclick="showSection('payment')"><span class="navIcon">💳</span>የክፍያ መመሪያ</button>
+<button onclick="showSection('membership')"><span class="navIcon">👑</span>የአባልነት ቀናት</button>
+<button onclick="showSection('help')"><span class="navIcon">❔</span>እገዛ</button>
+<button onclick="showSection('contact')"><span class="navIcon">✉️</span>ያግኙን</button>
+<button class="logout" onclick="signOut()"><span class="navIcon">🚪</span>ውጣ</button>
+</nav>
+<div class="sidefoot">© 2026 ETHIOPIA AI VIDEO</div>
 </aside>
 
 <main class="content">
-
 <section id="home" class="section active">
- <div class="hero">
-  <img src="ethiopia_ai_video_cover-1.png" alt="ETHIOPIA AI VIDEO Cover">
- </div>
-
- <div class="welcome">
-  <div class="check">✓</div>
-  <div>
-   <h2>እንኳን ደህና መጡ!</h2>
-   <p>ወደ ETHIOPIA AI VIDEO ድረገጽ በደህና መጡ።</p>
-  </div>
- </div>
-
- <div class="stats">
-  <div class="stat">👑 50 ብር<small>ለ30 ቀናት አባልነት</small></div>
-  <div class="statDivider"></div>
-  <div class="stat">📅 30 ቀን<small>የአባልነት ጊዜ</small></div>
- </div>
-
- <button class="generatorLink" onclick="openGenerator()">
-  ▶ AI VIDEO GENERATOR<br>
-  <small>የራስዎን አዲስ ቪዲዮ ይፍጠሩ</small>
- </button>
-
- <div class="infoCard">
-  <h3>💡 የአጠቃቀም መመሪያ</h3>
-  <ol>
-   <li>የሚፈልጉትን የቪዲዮ ጥራት ይምረጡ።</li>
-   <li>የተመረጠው የAI አገልግሎት ይከፈታል።</li>
-   <li>በውጭው አገልግሎት የሚታየውን መመሪያ ይከተሉ።</li>
-  </ol>
-  <button class="action" onclick="showSection('guide')">ሙሉ መመሪያውን ይመልከቱ</button>
- </div>
+<div class="hero">
+<img src="ethiopia_ai_video_cover-1.png" alt="ETHIOPIA AI VIDEO Cover">
+</div>
+<div class="welcome">
+<div class="check">✓</div>
+<div>
+<h2>እንኳን ደህና መጡ!</h2>
+<p>ወደ ETHIOPIA AI VIDEO ድረገጽ በደህና መጡ።</p>
+</div>
+</div>
+<div class="stats">
+<div class="stat">👑 50 ብር<small>ለ30 ቀናት አባልነት</small></div>
+<div class="statDivider"></div>
+<div class="stat">📅 30 ቀን<small>የአባልነት ጊዜ</small></div>
+</div>
+<button class="generatorLink" onclick="openGenerator()">
+▶ AI VIDEO GENERATOR<br>
+<small>የራስዎን አዲስ ቪዲዮ ይፍጠሩ</small>
+</button>
+<div class="infoCard">
+<h3>💡 የአጠቃቀም መመሪያ</h3>
+<ol>
+<li>የሚፈልጉትን የቪዲዮ ጥራት ይምረጡ።</li>
+<li>የተመረጠው የAI አገልግሎት ይከፈታል።</li>
+<li>በውጭው አገልግሎት የሚታየውን መመሪያ ይከተሉ።</li>
+</ol>
+<button class="action" onclick="showSection('guide')">ሙሉ መመሪያውን ይመልከቱ</button>
+</div>
 </section>
 
 <section id="generator" class="section">
- <div class="panel" style="margin-top:0">
-  <h2>🎬 AI Video Generator</h2>
-  <p>የሚፈልጉትን የቪዲዮ አማራጭ ይምረጡ።</p>
-
-  <div class="choice" onclick="openVideoService('high')">
-   <h3>🌟 ከፍተኛ ጥራት</h3>
-   <p>ከፍተኛ ጥራት ያለው AI ቪዲዮ ለመፍጠር ይጫኑ።</p>
-   <button class="action blue" type="button">🌟 ከፍተኛ ጥራት</button>
-  </div>
-
-  <div class="choice" onclick="openVideoService('low')">
-   <h3>📱 አነስተኛ</h3>
-   <p>YouTube Create ለመጠቀም ይጫኑ።</p>
-   <button class="action" type="button">📱 አነስተኛ</button>
-  </div>
-
-  <div id="status"></div>
- </div>
+<div class="panel" style="margin-top:0">
+<h2>🎬 AI Video Generator</h2>
+<p>የሚፈልጉትን የቪዲዮ አማራጭ ይምረጡ።</p>
+<div class="choice" onclick="openVideoService('high')">
+<h3>🌟 ከፍተኛ ጥራት</h3>
+<p>Google Flow በመጠቀም ቪዲዮ ለመፍጠር ይጫኑ።</p>
+<button class="action blue" type="button">🌟 ከፍተኛ ጥራት</button>
+</div>
+<div class="choice" onclick="openVideoService('low')">
+<h3>📱 YouTube Create</h3>
+<p>YouTube Create ለመጠቀም ይጫኑ።</p>
+<button class="action" type="button">📱 YouTube Create</button>
+</div>
+<div id="status"></div>
+</div>
 </section>
 
 <section id="about" class="section infoCard">
- <h2>🔵 ስለ ETHIOPIA AI VIDEO</h2>
- <p>ETHIOPIA AI VIDEO በAI ቴክኖሎጂ ቪዲዮ ለመፍጠር የተዘጋጀ መድረክ ነው።</p>
- <p>ዓላማችን ተጠቃሚዎች የሚፈልጉትን የቪዲዮ ሀሳብ በቀላሉ እንዲያዘጋጁ ማገዝ ነው።</p>
+<h2>🔵 ስለ ETHIOPIA AI VIDEO</h2>
+<p>ETHIOPIA AI VIDEO በAI ቴክኖሎጂ ቪዲዮ ለመፍጠር የተዘጋጀ መድረክ ነው።</p>
+<p>ዓላማችን ተጠቃሚዎች የሚፈልጉትን የቪዲዮ ሀሳብ በቀላሉ እንዲያዘጋጁ ማገዝ ነው።</p>
 </section>
 
 <section id="guide" class="section infoCard">
- <h2>📖 የአጠቃቀም መመሪያ</h2>
- <ol>
-  <li>ወደ AI VIDEO GENERATOR ይግቡ።</li>
-  <li>ከፍተኛ ጥራት ወይም አነስተኛ የሚለውን ይምረጡ።</li>
-  <li>የተመረጠው የAI አገልግሎት ሲከፈት መመሪያውን ይከተሉ።</li>
- </ol>
- <p class="smallText">የቪዲዮ መፍጠር በውጭ አገልግሎት ስለሚከናወን የአገልግሎቱ መለያ ወይም ፈቃድ ሊያስፈልግ ይችላል።</p>
+<h2>📖 የአጠቃቀም መመሪያ</h2>
+<ol>
+<li>ወደ AI VIDEO GENERATOR ይግቡ።</li>
+<li>ከፍተኛ ጥራት ወይም YouTube Create የሚለውን ይምረጡ።</li>
+<li>የተመረጠውን የAI አገልግሎት ይጠቀሙ።</li>
+</ol>
+<p class="smallText">የቪዲዮ መፍጠር በውጭ አገልግሎት ስለሚከናወን የአገልግሎቱ መለያ ወይም ፈቃድ ሊያስፈልግ ይችላል።</p>
 </section>
 
 <section id="payment" class="section infoCard">
- <h2>💳 የክፍያ መመሪያ</h2>
- <h3>የአባልነት ክፍያ፦ 50 ETB</h3>
- <p>የአባልነት ጊዜ፦ 30 ቀናት</p>
- <ol>
-  <li>የክፍያ አዝራሩን ይጫኑ።</li>
-  <li>የክፍያ ገጹ ሲከፈት የሚታየውን መመሪያ ይከተሉ።</li>
-  <li>ክፍያዎ ከተረጋገጠ በኋላ አባልነትዎ ይነቃል።</li>
- </ol>
- <button class="action blue" onclick="payMembership()">50 ብር ክፍያ ይፈጽሙ</button>
- <p class="smallText">ክፍያ ከተፈጸመ በኋላ ማረጋገጫው በPayo ስርዓት ይከናወናል።</p>
- <div id="paymentStatus"></div>
+<h2>💳 የክፍያ መመሪያ</h2>
+<h3>የአባልነት ክፍያ፦ 50 ETB</h3>
+<p>የአባልነት ጊዜ፦ 30 ቀናት</p>
+<ol>
+<li>የክፍያ አዝራሩን ይጫኑ።</li>
+<li>የክፍያ ገጹ ሲከፈት የሚታየውን መመሪያ ይከተሉ።</li>
+<li>ክፍያዎ በPayo ከተረጋገጠ በኋላ አባልነትዎ ይነቃል።</li>
+</ol>
+<button class="action blue" onclick="payMembership()">50 ብር ክፍያ ይፈጽሙ</button>
+<p class="smallText">ክፍያ ከተፈጸመ በኋላ ማረጋገጫው በPayo ስርዓት ይከናወናል።</p>
+<div id="paymentStatus"></div>
 </section>
 
 <section id="membership" class="section infoCard">
- <h2>👑 የአባልነት ሁኔታ</h2>
- <p id="membershipStatus">የአባልነት ሁኔታ እየተፈተሸ ነው...</p>
- <button class="action blue" onclick="refreshMembership()">እንደገና ያረጋግጡ</button>
- <button class="action" onclick="showSection('payment')">አባልነት ይግዙ</button>
+<h2>👑 የአባልነት ሁኔታ</h2>
+<p id="membershipStatus">የአባልነት ሁኔታ እየተፈተሸ ነው...</p>
+<button class="action blue" onclick="refreshMembership()">እንደገና ያረጋግጡ</button>
+<button class="action" onclick="showSection('payment')">አባልነት ይግዙ</button>
 </section>
 
 <section id="help" class="section infoCard">
- <h2>❔ እገዛ</h2>
- <p><b>ጥያቄ፦</b> አባልነት ስንት ብር ነው?</p>
- <p>መልስ፦ 50 ብር ለ30 ቀናት ነው።</p>
- <p><b>ጥያቄ፦</b> ክፍያ ከፈጸምኩ በኋላ መቼ ይነቃል?</p>
- <p>መልስ፦ ክፍያው ከተረጋገጠ በኋላ ይነቃል።</p>
- <p><b>ጥያቄ፦</b> ቪዲዮው የት ይዘጋጃል?</p>
- <p>መልስ፦ በተመረጠው የውጭ AI አገልግሎት ይዘጋጃል።</p>
+<h2>❔ እገዛ</h2>
+<p><b>ጥያቄ፦</b> አባልነት ስንት ብር ነው?</p>
+<p>መልስ፦ 50 ብር ለ30 ቀናት ነው።</p>
+<p><b>ጥያቄ፦</b> ክፍያ ከፈጸምኩ በኋላ መቼ ይነቃል?</p>
+<p>መልስ፦ ክፍያው ከተረጋገጠ በኋላ ይነቃል።</p>
 </section>
 
 <section id="contact" class="section infoCard">
- <h2>✉️ ያግኙን</h2>
- <p>ለእገዛ ወይም ለጥያቄ በዚህ ገጽ ያለውን የእገዛ ክፍል ይጠቀሙ።</p>
- <p class="smallText">የድረገጹ አስተዳዳሪ፦ Amanuel Berhe</p>
+<h2>✉️ ያግኙን</h2>
+<p>ለእገዛ ወይም ለጥያቄ በዚህ ገጽ ያለውን የእገዛ ክፍል ይጠቀሙ።</p>
+<p class="smallText">የድረገጹ አስተዳዳሪ፦ Amanuel Berhe</p>
 </section>
 
 <footer>© 2026 ETHIOPIA AI VIDEO</footer>
@@ -248,247 +232,238 @@ const SUPABASE_URL = "https://cdarlbwkvkzfyncttrsu.supabase.co";
 const SUPABASE_KEY = "sb_publishable_wKzLmIwl4hkxs5OhqkjjqA_r8YAkp1A";
 
 const supabaseClient = window.supabase.createClient(
- SUPABASE_URL,
- SUPABASE_KEY
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
-const GENERATOR_TEST_MODE = true;
-
 const VIDEO_DESTINATIONS = {
- high: "https://labs.google/fx/tools/flow",
- low: "https://play.google.com/store/apps/details?id=com.google.android.apps.youtube.producer"
+  high: "https://labs.google/fx/tools/flow",
+  low: "https://play.google.com/store/apps/details?id=com.google.android.apps.youtube.producer"
 };
 
 let currentUser = null;
+let membershipActive = false;
 
 function message(id,text){
- const el=document.getElementById(id);
- if(el) el.textContent=text;
+  const el=document.getElementById(id);
+  if(el) el.textContent=text;
 }
 
 function toggleMenu(){
- document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("sidebar").classList.toggle("open");
+}
+
+function displaySection(name){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  const target=document.getElementById(name);
+  if(target) target.classList.add("active");
+
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  const clicked=[...document.querySelectorAll(".nav button")]
+    .find(b=>b.getAttribute("onclick")===`showSection('${name}')`);
+  if(clicked) clicked.classList.add("active");
+
+  document.getElementById("sidebar").classList.remove("open");
 }
 
 function showSection(name){
- document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-
- const target=document.getElementById(name);
- if(target) target.classList.add("active");
-
- document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-
- const clicked=[...document.querySelectorAll(".nav button")]
- .find(b=>b.getAttribute("onclick")===`showSection('${name}')`);
-
- if(clicked) clicked.classList.add("active");
-
- document.getElementById("sidebar").classList.remove("open");
+  if(name==="generator"){
+    openGenerator();
+    return;
+  }
+  displaySection(name);
 }
 
 function showApp(){
- document.getElementById("authPanel").classList.add("hidden");
- document.getElementById("appShell").classList.remove("hidden");
-
- if(currentUser){
-  message("sideEmail",currentUser.email || "");
- }
-
- refreshMembership();
+  document.getElementById("authPanel").classList.add("hidden");
+  document.getElementById("appShell").classList.remove("hidden");
+  if(currentUser) message("sideEmail",currentUser.email || "");
+  refreshMembership();
 }
 
 function showLogin(){
- document.getElementById("authPanel").classList.remove("hidden");
- document.getElementById("appShell").classList.add("hidden");
+  membershipActive=false;
+  document.getElementById("authPanel").classList.remove("hidden");
+  document.getElementById("appShell").classList.add("hidden");
 }
 
 async function signUp(){
- const email=document.getElementById("email").value.trim();
- const password=document.getElementById("password").value;
+  const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
 
- if(!email || !password){
-  message("authStatus","እባክዎ Email እና Password ያስገቡ።");
-  return;
- }
+  if(!email || !password){
+    message("authStatus","እባክዎ Email እና Password ያስገቡ።");
+    return;
+  }
+  if(password.length<6){
+    message("authStatus","Password ቢያንስ 6 ፊደል ወይም ቁጥር መሆን አለበት።");
+    return;
+  }
 
- if(password.length<6){
-  message("authStatus","Password ቢያንስ 6 ፊደል ወይም ቁጥር መሆን አለበት።");
-  return;
- }
+  message("authStatus","መለያዎ እየተፈጠረ ነው...");
+  const {data,error}=await supabaseClient.auth.signUp({email,password});
 
- message("authStatus","መለያዎ እየተፈጠረ ነው...");
+  if(error){
+    message("authStatus","ስህተት፦ "+error.message);
+    return;
+  }
 
- const {data,error}=await supabaseClient.auth.signUp({
-  email,
-  password
- });
-
- if(error){
-  message("authStatus","ስህተት፦ "+error.message);
-  return;
- }
-
- if(data.session){
-  currentUser=data.user;
-  showApp();
-  message("authStatus","መለያዎ ተፈጥሯል።");
- }else{
-  message("authStatus","መለያዎ ተፈጥሯል። Email ማረጋገጫ ከተላከልዎ ያረጋግጡና Login ያድርጉ።");
- }
+  if(data.session){
+    currentUser=data.user;
+    showApp();
+    message("authStatus","መለያዎ ተፈጥሯል።");
+  }else{
+    message("authStatus","መለያዎ ተፈጥሯል። Email ማረጋገጫ ከተላከልዎ ያረጋግጡና Login ያድርጉ።");
+  }
 }
 
 async function signIn(){
- const email=document.getElementById("email").value.trim();
- const password=document.getElementById("password").value;
+  const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
 
- if(!email || !password){
-  message("authStatus","Email እና Password ያስገቡ።");
-  return;
- }
+  if(!email || !password){
+    message("authStatus","Email እና Password ያስገቡ።");
+    return;
+  }
 
- message("authStatus","በመግባት ላይ...");
+  message("authStatus","በመግባት ላይ...");
+  const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
 
- const {data,error}=await supabaseClient.auth.signInWithPassword({
-  email,
-  password
- });
+  if(error){
+    message("authStatus","መግባት አልተቻለም፦ "+error.message);
+    return;
+  }
 
- if(error){
-  message("authStatus","መግባት አልተቻለም፦ "+error.message);
-  return;
- }
-
- currentUser=data.user;
- showApp();
+  currentUser=data.user;
+  showApp();
 }
 
 async function googleLogin(){
- message("authStatus","Google መግቢያ እየተከፈተ ነው...");
-
- const {error}=await supabaseClient.auth.signInWithOAuth({
-  provider:"google",
-  options:{redirectTo:window.location.origin}
- });
-
- if(error){
-  message("authStatus","Google መግባት አልተቻለም፦ "+error.message);
- }
+  message("authStatus","Google መግቢያ እየተከፈተ ነው...");
+  const {error}=await supabaseClient.auth.signInWithOAuth({
+    provider:"google",
+    options:{redirectTo:window.location.origin}
+  });
+  if(error) message("authStatus","Google መግባት አልተቻለም፦ "+error.message);
 }
 
 async function signOut(){
- await supabaseClient.auth.signOut();
- currentUser=null;
- showLogin();
- message("authStatus","ከመለያዎ ወጥተዋል።");
+  await supabaseClient.auth.signOut();
+  currentUser=null;
+  showLogin();
+  message("authStatus","ከመለያዎ ወጥተዋል።");
 }
 
 async function refreshMembership(){
- if(!currentUser) return false;
+  membershipActive=false;
+  if(!currentUser) return false;
 
- message("membershipStatus","የአባልነት ሁኔታ እየተፈተሸ ነው...");
+  message("membershipStatus","የአባልነት ሁኔታ እየተፈተሸ ነው...");
 
- const {data,error}=await supabaseClient
-  .from("profiles")
-  .select("membership_expires_at")
-  .eq("id",currentUser.id)
-  .maybeSingle();
+  const {data,error}=await supabaseClient
+    .from("profiles")
+    .select("membership_expires_at")
+    .eq("id",currentUser.id)
+    .maybeSingle();
 
- if(error){
-  message("membershipStatus","የአባልነት መረጃ ማንበብ አልተቻለም።");
+  if(error){
+    message("membershipStatus","የአባልነት መረጃ ማንበብ አልተቻለም።");
+    return false;
+  }
+
+  if(!data || !data.membership_expires_at){
+    message("membershipStatus","አሁን ንቁ አባልነት የለዎትም። 50 ብር በመክፈል ለ30 ቀናት አባል ይሁኑ።");
+    return false;
+  }
+
+  const expiry=new Date(data.membership_expires_at);
+  const now=new Date();
+
+  if(expiry>now){
+    membershipActive=true;
+    const days=Math.ceil((expiry-now)/(1000*60*60*24));
+    message("membershipStatus","ንቁ አባልነት አለዎት። የቀሩት ቀናት፦ "+days+" ቀን።");
+    return true;
+  }
+
+  message("membershipStatus","የአባልነት ጊዜዎ አልቋል። እንደገና አባል ይሁኑ።");
   return false;
- }
-
- if(!data || !data.membership_expires_at){
-  message("membershipStatus","አሁን ንቁ አባልነት የለዎትም። 50 ብር በመክፈል ለ30 ቀናት አባል ይሁኑ።");
-  return false;
- }
-
- const expiry=new Date(data.membership_expires_at);
- const now=new Date();
-
- if(expiry>now){
-  const days=Math.ceil((expiry-now)/(1000*60*60*24));
-  message("membershipStatus","ንቁ አባልነት አለዎት። የቀሩት ቀናት፦ "+days+" ቀን።");
-  return true;
- }
-
- message("membershipStatus","የአባልነት ጊዜዎ አልቋል። እንደገና አባል ይሁኑ።");
- return false;
 }
 
 async function payMembership(){
- if(!currentUser){
-  message("paymentStatus","እባክዎ መጀመሪያ Login ያድርጉ።");
-  return;
- }
+  if(!currentUser){
+    message("paymentStatus","እባክዎ መጀመሪያ Login ያድርጉ።");
+    return;
+  }
 
- message("paymentStatus","የክፍያ ጥያቄዎ እየተዘጋጀ ነው...");
+  message("paymentStatus","የክፍያ ጥያቄዎ እየተዘጋጀ ነው...");
 
- const {data,error}=await supabaseClient.functions.invoke("payo-create-order",{
-  body:{}
- });
+  const {data,error}=await supabaseClient.functions.invoke("payo-create-order",{
+    body:{}
+  });
 
- if(error){
-  message("paymentStatus","የክፍያ ጥያቄው አልተሳካም። እባክዎ ቆይተው ይሞክሩ።");
-  return;
- }
+  if(error){
+    message("paymentStatus","የክፍያ ጥያቄው አልተሳካም። እባክዎ ቆይተው ይሞክሩ።");
+    return;
+  }
 
- if(data && data.paymentUrl){
-  window.location.href=data.paymentUrl;
- }else{
-  message("paymentStatus","የክፍያ ሊንክ አልተገኘም። እባክዎ እንደገና ይሞክሩ።");
- }
+  if(data && data.paymentUrl){
+    window.location.href=data.paymentUrl;
+  }else{
+    message("paymentStatus","የክፍያ ሊንክ አልተገኘም። እንደገና ይሞክሩ።");
+  }
 }
 
 async function openGenerator(){
- if(GENERATOR_TEST_MODE){
-  showSection("generator");
-  return;
- }
+  const active=await refreshMembership();
 
- const active=await refreshMembership();
-
- if(active){
-  showSection("generator");
- }else{
-  showSection("membership");
- }
+  if(active){
+    displaySection("generator");
+  }else{
+    displaySection("membership");
+  }
 }
 
-function openVideoService(type){
- const destination=VIDEO_DESTINATIONS[type];
+async function openVideoService(type){
+  const active=await refreshMembership();
 
- if(!destination){
-  message("status","የተመረጠው አገልግሎት አልተገኘም።");
-  return;
- }
+  if(!active){
+    displaySection("membership");
+    message("status","እባክዎ መጀመሪያ 50 ብር ክፍያ ፈጽመው አባልነትዎን ያንቁ።");
+    return;
+  }
 
- window.location.href=destination;
+  const destination=VIDEO_DESTINATIONS[type];
+  if(!destination){
+    message("status","የተመረጠው አገልግሎት አልተገኘም።");
+    return;
+  }
+
+  window.location.href=destination;
 }
 
 async function startApp(){
- const {data}=await supabaseClient.auth.getSession();
+  const {data}=await supabaseClient.auth.getSession();
 
- if(data.session){
-  currentUser=data.session.user;
-  showApp();
- }else{
-  showLogin();
- }
+  if(data.session){
+    currentUser=data.session.user;
+    showApp();
+  }else{
+    showLogin();
+  }
 }
 
 supabaseClient.auth.onAuthStateChange((event,session)=>{
- if(session){
-  currentUser=session.user;
-  showApp();
- }else if(event==="SIGNED_OUT"){
-  currentUser=null;
-  showLogin();
- }
+  if(session){
+    currentUser=session.user;
+    showApp();
+  }else if(event==="SIGNED_OUT"){
+    currentUser=null;
+    showLogin();
+  }
 });
 
 startApp();
 </script>
-
 </body>
 </html>
